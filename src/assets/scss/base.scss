@@ -1,0 +1,45 @@
+@use './vars.scss' as *;
+
+body {
+  min-width: 320px;
+  color: $color-text;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  background: $color-bg;
+  overflow-y: scroll;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin-top: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 16px 0;
+}
+
+a {
+  color: $color-text;
+  text-decoration: none;
+}

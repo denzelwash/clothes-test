@@ -1,0 +1,100 @@
+@use './vars.scss' as *;
+
+.selected-clothes {
+  display: grid;
+  grid-template-columns: 280px 280px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  @media (max-width: $md) {
+    grid-template-columns: 100%;
+  }
+  &__block {
+    position: relative;
+    border: 1px solid #ececec;
+    min-height: 280px;
+    padding: 16px;
+    &--multiple {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(20%, 1fr));
+      align-content: start;
+      gap: 4px;
+      padding-bottom: 36px;
+      @media (max-width: $sm) {
+        grid-template-columns: repeat(3, minmax(30%, 1fr));
+      }
+      .clothes-item {
+        aspect-ratio: 1 / 1;
+      }
+    }
+    &--single {
+      .clothes-item {
+        aspect-ratio: 1 / 1;
+      }
+    }
+  }
+  &__counter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px;
+    text-align: center;
+    background-color: $color-bg;
+    z-index: 1;
+  }
+}
+
+.available-clothes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  @media (max-width: $md) {
+    grid-template-columns: 100%;
+  }
+  &__block {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-content: start;
+    gap: 8px;
+    border: 1px solid #ececec;
+    min-height: 400px;
+    padding: 16px;
+    @media (max-width: $sm) {
+      grid-template-columns: repeat(3, minmax(30%, 1fr));
+    }
+    .clothes-item {
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+.clothes-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #ececec;
+  cursor: pointer;
+  span {
+    font-size: 18px;
+    text-align: center;
+    @media (max-width: $lg) {
+      font-size: 14px;
+    }
+  }
+  &--big {
+    height: 100%;
+    span {
+      font-size: 24px;
+    }
+  }
+  &--small {
+    span {
+      font-size: 12px;
+    }
+  }
+  &--disabled {
+    pointer-events: none;
+  }
+}
