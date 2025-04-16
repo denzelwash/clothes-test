@@ -13,20 +13,3 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'default',
 })
 </script>
-
-<style lang="scss" scoped>
-.clothes-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-  border: 1px solid #ececec;
-  cursor: pointer;
-  span {
-    font-size: 18px;
-  }
-  &--big {
-    height: 100%;
-  }
-}
-</style>
