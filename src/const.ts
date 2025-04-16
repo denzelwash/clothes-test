@@ -1,4 +1,6 @@
-export const DATA_LEFT = [
+import type { IClothesItem } from './types/clothes'
+
+export const DATA_LEFT: IClothesItem[] = [
   {
     id: 1,
     name: 'Shoes 1',
@@ -33,7 +35,7 @@ export const DATA_LEFT = [
   },
 ]
 
-export const DATA_RIGHT = [
+export const DATA_RIGHT: IClothesItem[] = [
   {
     id: 11,
     name: 'Jacket 1',
