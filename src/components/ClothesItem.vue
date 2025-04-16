@@ -1,5 +1,5 @@
 <template>
-  <div :class="['clothes-item', { 'clothes-item--big': props.type === 'big' }]">
+  <div :class="['clothes-item', props.type !== 'default' ? `clothes-item--${props.type}` : '']">
     <span>{{ props.name }}</span>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script setup lang="ts">
 interface Props {
   name: string
-  type?: 'default' | 'big'
+  type?: 'default' | 'big' | 'small' | 'disabled'
 }
 const props = withDefaults(defineProps<Props>(), {
   type: 'default',

@@ -1,40 +1,83 @@
 <template>
-  <main>
-    <div class="selected-clothes">
-      <div class="selected-clothes__block selected-clothes__block--multiple">
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <div class="selected-clothes__counter">selected 1 / 20</div>
-      </div>
-      <div class="selected-clothes__block selected-clothes__block--single">
-        <ClothesItem :name="'11'" />
+  <div class="selected-clothes">
+    <div class="selected-clothes__block selected-clothes__block--multiple">
+      <ClothesItem
+        v-for="item in selectedItemsLeft"
+        :key="item.id"
+        :name="item.name"
+        type="small"
+        @click="removeFromSelectedItemsLeftHandler(item)"
+      />
+      <div class="selected-clothes__counter">
+        selected {{ `${selectedItemsLeft.length} / ${DATA_LEFT.length}` }}
       </div>
     </div>
-    <div class="available-clothes">
-      <div class="available-clothes__block">
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-      </div>
-      <div class="available-clothes__block">
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-        <ClothesItem :name="'11'" />
-      </div>
+    <div class="selected-clothes__block selected-clothes__block--single">
+      <ClothesItem
+        v-if="selectedItemRight"
+        :name="selectedItemRight.name"
+        type="big"
+        @click="removeFromSelectedItemRightHandler"
+      />
     </div>
-  </main>
+  </div>
+  <div class="available-clothes">
+    <div class="available-clothes__block">
+      <ClothesItem
+        v-for="item in availableItemsLeft"
+        :key="item.id"
+        :name="item.name"
+        @click="addToSelectedItemsLeftHandler(item)"
+      />
+    </div>
+    <div class="available-clothes__block">
+      <ClothesItem
+        v-for="item in availableItemsRight"
+        :key="item.id"
+        :name="item.name"
+        :type="selectedItemRight ? 'disabled' : 'default'"
+        @click="addToSelectedItemRightHandler(item)"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import ClothesItem from '@/components/ClothesItem.vue'
+import type { IClothesItem } from '@/types/clothes'
+import { DATA_LEFT, DATA_RIGHT } from '@/const'
+import { ref, computed } from 'vue'
+
+const selectedItemsLeft = ref<IClothesItem[]>([])
+const selectedItemRight = ref<IClothesItem | null>(null)
+
+const availableItemsLeft = computed(() => {
+  return DATA_LEFT.filter((c) => !selectedItemsLeft.value.find((s) => c.id === s.id))
+})
+
+const availableItemsRight = computed(() => {
+  const currentSelected = selectedItemRight.value
+  if (currentSelected !== null) {
+    return DATA_RIGHT.filter((c) => c.id !== currentSelected.id)
+  }
+  return DATA_RIGHT
+})
+
+const addToSelectedItemsLeftHandler = (clothes: IClothesItem) => {
+  selectedItemsLeft.value.push(clothes)
+}
+
+const removeFromSelectedItemsLeftHandler = (clothes: IClothesItem) => {
+  selectedItemsLeft.value = selectedItemsLeft.value.filter((c) => c.id !== clothes.id)
+}
+
+const addToSelectedItemRightHandler = (clothes: IClothesItem) => {
+  if (selectedItemRight.value === null) {
+    selectedItemRight.value = clothes
+  }
+}
+
+const removeFromSelectedItemRightHandler = () => {
+  selectedItemRight.value = null
+}
 </script>
