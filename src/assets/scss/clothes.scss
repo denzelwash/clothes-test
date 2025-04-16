@@ -2,28 +2,34 @@
 
 .selected-clothes {
   display: grid;
-  grid-template-columns: 300px 300px;
+  grid-template-columns: 280px 280px;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 16px;
+  @media (max-width: $md) {
+    grid-template-columns: 100%;
+  }
   &__block {
     position: relative;
     border: 1px solid #ececec;
-    min-height: 300px;
+    min-height: 280px;
     padding: 16px;
     &--multiple {
-      display: flex;
-      flex-wrap: wrap;
-      align-content: flex-start;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(20%, 1fr));
+      align-content: start;
       gap: 4px;
+      padding-bottom: 36px;
+      @media (max-width: $sm) {
+        grid-template-columns: repeat(3, minmax(30%, 1fr));
+      }
       .clothes-item {
-        width: calc(100% / 4 - 3px);
-        height: calc(100% / 4 - 3px);
+        aspect-ratio: 1 / 1;
       }
     }
     &--single {
-      > div {
-        height: 100%;
+      .clothes-item {
+        aspect-ratio: 1 / 1;
       }
     }
   }
@@ -38,21 +44,27 @@
     z-index: 1;
   }
 }
+
 .available-clothes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  @media (max-width: $md) {
+    grid-template-columns: 100%;
+  }
   &__block {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-content: start;
     gap: 8px;
     border: 1px solid #ececec;
-    min-height: 600px;
+    min-height: 400px;
     padding: 16px;
+    @media (max-width: $sm) {
+      grid-template-columns: repeat(3, minmax(30%, 1fr));
+    }
     .clothes-item {
-      width: calc(100% / 4 - 8px);
-      height: calc(100% / 4 - 8px);
+      aspect-ratio: 1 / 1;
     }
   }
 }
@@ -66,8 +78,23 @@
   cursor: pointer;
   span {
     font-size: 18px;
+    text-align: center;
+    @media (max-width: $lg) {
+      font-size: 14px;
+    }
   }
   &--big {
     height: 100%;
+    span {
+      font-size: 24px;
+    }
+  }
+  &--small {
+    span {
+      font-size: 12px;
+    }
+  }
+  &--disabled {
+    pointer-events: none;
   }
 }
