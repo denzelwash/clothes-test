@@ -9,7 +9,7 @@
         @click="removeFromSelectedItemsLeftHandler(item)"
       />
       <div class="selected-clothes__counter">
-        selected {{ `${selectedItemsLeft.length} / ${DATA_LEFT.length}` }}
+        selected {{ `${selectedItemsLeft.length} / ${SELECTED_MAX_COUNT_LEFT}` }}
       </div>
     </div>
     <div class="selected-clothes__block selected-clothes__block--single">
@@ -27,6 +27,7 @@
         v-for="item in availableItemsLeft"
         :key="item.id"
         :name="item.name"
+        :type="selectedItemsLeft.length === SELECTED_MAX_COUNT_LEFT ? 'disabled' : 'default'"
         @click="addToSelectedItemsLeftHandler(item)"
       />
     </div>
@@ -45,7 +46,7 @@
 <script setup lang="ts">
 import ClothesItem from '@/components/ClothesItem.vue'
 import type { IClothesItem } from '@/types/clothes'
-import { DATA_LEFT, DATA_RIGHT } from '@/const'
+import { DATA_LEFT, DATA_RIGHT, SELECTED_MAX_COUNT_LEFT } from '@/const'
 import { ref, computed } from 'vue'
 
 const selectedItemsLeft = ref<IClothesItem[]>([])
@@ -64,7 +65,9 @@ const availableItemsRight = computed(() => {
 })
 
 const addToSelectedItemsLeftHandler = (clothes: IClothesItem) => {
-  selectedItemsLeft.value.push(clothes)
+  if (selectedItemsLeft.value.length < SELECTED_MAX_COUNT_LEFT) {
+    selectedItemsLeft.value.push(clothes)
+  }
 }
 
 const removeFromSelectedItemsLeftHandler = (clothes: IClothesItem) => {

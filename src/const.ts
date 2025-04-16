@@ -1,5 +1,7 @@
 import type { IClothesItem } from './types/clothes'
 
+export const SELECTED_MAX_COUNT_LEFT = 6
+
 export const DATA_LEFT: IClothesItem[] = [
   {
     id: 1,
