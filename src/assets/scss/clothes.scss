@@ -14,6 +14,11 @@
     border: 1px solid #ececec;
     min-height: 280px;
     padding: 16px;
+    @media (max-width: $md) {
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      height: auto;
+    }
     &--multiple {
       display: grid;
       grid-template-columns: repeat(4, minmax(20%, 1fr));
