@@ -7,7 +7,7 @@
 <script setup lang="ts">
 interface Props {
   name: string
-  type?: 'default' | 'big' | 'small' | 'disabled'
+  type?: 'default' | 'small' | 'disabled'
 }
 const props = withDefaults(defineProps<Props>(), {
   type: 'default',

@@ -16,7 +16,6 @@
       <ClothesItem
         v-if="selectedItemRight"
         :name="selectedItemRight.name"
-        type="big"
         @click="removeFromSelectedItemRightHandler"
       />
     </div>
